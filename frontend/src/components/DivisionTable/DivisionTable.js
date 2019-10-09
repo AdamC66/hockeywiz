@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import DivisionCard from '../DivisionCard/DivisionCard';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,11 +32,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AutoGrid() {
+export default function AutoGrid(teams) {
   const classes = useStyles();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('s'));
-
+  console.log("DIVISION TABLE", teams.teams)
+  let atlantic = teams.teams.filter(team => team.division==='Atlantic')
+  const pacific = teams.teams.filter(team => team.division==='Pacific')
+  const metropolitan = teams.teams.filter(team => team.division==='Metropolitan')
+  const central = teams.teams.filter(team => team.division==='Central')
   return (
     <div className={classes.root } >
       <Typography variant="h4" className={classes.title}>
@@ -51,16 +51,16 @@ export default function AutoGrid() {
         width='40%'
       >
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-          <DivisionCard />
+          <DivisionCard teams={atlantic}/>
         </Grid>
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-        <DivisionCard />
+        <DivisionCard teams={metropolitan}/>
         </Grid>
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-          <DivisionCard />
+          <DivisionCard teams={central}/>
         </Grid>
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-          <DivisionCard />
+          <DivisionCard teams={pacific}/>
         </Grid>
       </Grid>
     </div>

@@ -5,7 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import logoPlaceholder from '../../img/logo-placeholder.jpeg'
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles({
   card: {
@@ -40,9 +39,9 @@ const useStyles = makeStyles({
   teamLogo:{
       width: 'auto',
       height: '4em',
-      float: 'left',
       margin: 0,
       padding: 0,
+      textAlign: 'center',
   },
   compress:{
       margin: 0,
@@ -50,7 +49,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleCard() {
+export default function SimpleCard(team) {
   const classes = useStyles();
 
 
@@ -60,7 +59,7 @@ export default function SimpleCard() {
       <CardContent>
           <div className={classes.teamCardContent}>
         <div className={classes.teamCardLeft}>
-            <img className={classes.teamLogo} src={logoPlaceholder} alt="" />
+            <img className={classes.teamLogo} src={`/teamlogos/${team.team.city.toLowerCase().replace(/\s/g, '')}.png`} alt="" />
         </div>
         <div className={classes.teamCardCenter}>
             <span className={classes.compress}> W: &nbsp;  L: &nbsp;  SOL: &nbsp; </span>

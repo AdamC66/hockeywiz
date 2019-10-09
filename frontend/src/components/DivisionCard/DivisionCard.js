@@ -22,18 +22,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleCard() {
-  const classes = useStyles();
 
+export default function SimpleCard(teams) {
+  const classes = useStyles();
+  const appElements = teams.teams.map((team, i)=><TeamCard key={i} id={i} team={team}/>)
+    console.log("__DIVISION CARD", teams)
   return (
     <Card className={classes.card}>
       <CardContent>
-            <TeamCard/>
-            <TeamCard/>
-            <TeamCard/>
-            <TeamCard/>
-            <TeamCard/>
-            <TeamCard/>
+            { appElements }
       </CardContent>
     </Card>
   );
