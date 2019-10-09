@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function AutoGrid(teams) {
   const classes = useStyles();
-  console.log("DIVISION TABLE", teams.teams)
   let atlantic = teams.teams.filter(team => team.division==='Atlantic')
   const pacific = teams.teams.filter(team => team.division==='Pacific')
   const metropolitan = teams.teams.filter(team => team.division==='Metropolitan')
@@ -47,20 +46,20 @@ export default function AutoGrid(teams) {
       <Grid container={true} spacing={2}
         direction="row"
         justify="center"
-        alignItems="center"
+        alignItems="top"
         width='40%'
       >
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-          <DivisionCard teams={atlantic}/>
+          <DivisionCard teams={atlantic} mytitle={'Atlantic'}/>
         </Grid>
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-        <DivisionCard teams={metropolitan}/>
+        <DivisionCard teams={metropolitan} mytitle={"Metropolitan"}/>
         </Grid>
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-          <DivisionCard teams={central}/>
+          <DivisionCard teams={central} mytitle={"Central"}/>
         </Grid>
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>
-          <DivisionCard teams={pacific}/>
+          <DivisionCard teams={pacific} mytitle={"Pacific"}/>
         </Grid>
       </Grid>
     </div>

@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TeamCard from '../TeamCard/TeamCard'
+import { CardHeader } from '@material-ui/core';
+import { mergeClasses } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   card: {
@@ -20,15 +22,20 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  title: {
+      backgroundColor: '#3f51b5',
+      color: 'white',
+  }
 });
 
 
-export default function SimpleCard(teams) {
+export default function SimpleCard({teams, mytitle}) {
   const classes = useStyles();
-  const appElements = teams.teams.map((team, i)=><TeamCard key={i} id={i} team={team}/>)
-    console.log("__DIVISION CARD", teams)
+  const appElements = teams.map((team, i)=><TeamCard key={i} id={i} team={team}/>)
+    console.log("__DIVISION CARD", mytitle)
   return (
     <Card className={classes.card}>
+    <CardHeader title={mytitle} className={classes.title}/>
       <CardContent>
             { appElements }
       </CardContent>

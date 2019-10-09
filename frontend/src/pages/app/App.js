@@ -18,8 +18,6 @@ function App() {
   },[])
 
 
-console.log(teams)
-
   return (
     <div className="App">
       <Header />
