@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() =>{
     async function fetchData(){
-      const res = await main_url.get('/teams/api/')
+      const res = await main_url.get('/teams/api/standings')
       .then(res=> setTeams(res.data))
       setIsLoading(false)
     }

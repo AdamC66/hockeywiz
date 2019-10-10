@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TeamCard from '../TeamCard/TeamCard'
 import { CardHeader } from '@material-ui/core';
-import { mergeClasses } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   card: {
@@ -18,14 +17,13 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 14,
+    backgroundColor: '#3f51b5',
+    color: 'white',
   },
   pos: {
     marginBottom: 12,
   },
-  title: {
-      backgroundColor: '#3f51b5',
-      color: 'white',
-  }
+
 });
 
 

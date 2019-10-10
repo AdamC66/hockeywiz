@@ -32,12 +32,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AutoGrid(teams) {
+export default function AutoGrid({teams}) {
   const classes = useStyles();
-  let atlantic = teams.teams.filter(team => team.division==='Atlantic')
-  const pacific = teams.teams.filter(team => team.division==='Pacific')
-  const metropolitan = teams.teams.filter(team => team.division==='Metropolitan')
-  const central = teams.teams.filter(team => team.division==='Central')
+  let atlantic = teams.filter(team => team.team.division==='Atlantic')
+  const pacific = teams.filter(team => team.team.division==='Pacific')
+  const metropolitan = teams.filter(team => team.team.division==='Metropolitan')
+  const central = teams.filter(team => team.team.division==='Central')
   return (
     <div className={classes.root } >
       <Typography variant="h4" className={classes.title}>

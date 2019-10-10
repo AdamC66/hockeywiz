@@ -7,10 +7,14 @@ import logoPlaceholder from '../../img/logo-placeholder.jpeg'
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const useStyles = makeStyles({
+  root:{
+    padding:5,
+    maxHeight: '3em',
+  },
   card: {
     minWidth: 200,
     maxWidth: 800,
-    height: '6em',
+    height: '4em',
     margin: '0.5em auto',
   },
   title: {
@@ -38,7 +42,7 @@ const useStyles = makeStyles({
   },
   teamLogo:{
       width: 'auto',
-      height: '4em',
+      height: '3em',
       margin: 0,
       padding: 0,
       textAlign: 'center',
@@ -49,25 +53,25 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleCard(team) {
+export default function SimpleCard({team}) {
   const classes = useStyles();
 
 
   return (
     <Card className={classes.card}>
     <CssBaseline />
-      <CardContent>
+      <CardContent className={classes.root}>
           <div className={classes.teamCardContent}>
         <div className={classes.teamCardLeft}>
             <img className={classes.teamLogo} src={`/teamlogos/${team.team.city.toLowerCase().replace(/\s/g, '')}.png`} alt="" />
         </div>
         <div className={classes.teamCardCenter}>
-            <span className={classes.compress}> W: &nbsp;  L: &nbsp;  SOL: &nbsp; </span>
-            <span className={classes.compress}> Contracts:  &nbsp;     Cap Space: &nbsp;  </span>
+            <span className={classes.compress}> W: {team.wins} | L: {team.losses} | OTL: {team.ot} </span>
+            <span className={classes.compress}> GP: {team.games_played} | GF: {team.goals_scored} | GA: {team.goals_against} | streak: {team.streak_length} {team.streak_type} </span>
         </div>  
         <div className={classes.teamCardRight}>
             <Typography variant="h6">
-                PTS: 23
+                PTS: {team.points}
             </Typography>
         </div>
         </div>
