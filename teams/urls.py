@@ -20,7 +20,8 @@ from . import views
 from . import api
 
 router = routers.DefaultRouter()
-router.register(r'', api.TeamViewSet)
+router.register(r'teams', api.TeamViewSet)
+router.register(r'standings', api.TeamRecordViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
