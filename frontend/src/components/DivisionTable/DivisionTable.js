@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 0,
     margin: '2em auto',
+    textAlign: 'center',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       padding: '0em 1em',
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function AutoGrid({teams}) {
   const classes = useStyles();
-  let atlantic = teams.filter(team => team.team.division==='Atlantic')
+  const atlantic = teams.filter(team => team.team.division==='Atlantic')
   const pacific = teams.filter(team => team.team.division==='Pacific')
   const metropolitan = teams.filter(team => team.team.division==='Metropolitan')
   const central = teams.filter(team => team.team.division==='Central')

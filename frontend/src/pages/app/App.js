@@ -3,7 +3,9 @@ import './App.css';
 import Header from '../../components/Header/Header'
 import DivisionTable from '../../components/DivisionTable/DivisionTable'
 import main_url from '../../config'
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Teams from '../teams/Teams'
+import Home from '../home/Home'
 function App() {
   const [teams, setTeams] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -19,10 +21,13 @@ function App() {
 
 
   return (
-    <div className="App">
-      <Header />
-      { isLoading ? <div>Loading</div> : <DivisionTable teams={teams}/>}
-    </div>
+    <Router>
+            <div className="Teams">
+                <Header />
+            </div>
+        <Route exact path = '/teams' component = {Teams}/>
+        <Route exact path='/' component = {Home}/>
+    </Router>
   );
 }
 
