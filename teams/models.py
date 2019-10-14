@@ -29,3 +29,5 @@ class TeamRecords(models.Model):
     def __str__(self):
         return ('{} {} - W:{} L:{} OT:{}'.format(self.team.city,self.team.name,self.wins,self.losses,self.ot))
 
+    class Meta:
+        ordering = ('-points',)
