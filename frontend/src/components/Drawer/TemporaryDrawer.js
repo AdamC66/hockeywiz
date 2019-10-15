@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import GroupIcon from '@material-ui/icons/Group';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   list: {
@@ -43,20 +44,24 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['Home', 'Teams', 'Players', 'Tools'].map((text, index) => (
+        {['Home', 'Teams', 'Standings', 'Tools'].map((text, index) => (
+          <Link to={`/${text}`}>
           <ListItem button key={text}>
             <ListItemIcon>{<GroupIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={text} /> 
           </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
       <List>
         {['Rules', 'About', 'Contact'].map((text, index) => (
+          <Link to={`/${text}`}>
           <ListItem button key={text}>
             <ListItemIcon>{<GroupIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
+          </Link>
         ))}
       </List>
     </div>

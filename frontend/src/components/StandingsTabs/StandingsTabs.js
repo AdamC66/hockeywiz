@@ -51,12 +51,12 @@ export default function StandingsTabs(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const eastTeams = props.teams.filter(team => team.team.division==='Atlantic' || team.team.division==='Metropolitan')
-  const westTeams = props.teams.filter(team => team.team.division==='Pacific' || team.team.division==='Central')
-  const atlantic = props.teams.filter(team => team.team.division==='Atlantic')
-  const pacific = props.teams.filter(team => team.team.division==='Pacific')
-  const metropolitan = props.teams.filter(team => team.team.division==='Metropolitan')
-  const central = props.teams.filter(team => team.team.division==='Central')
+  const eastTeams = props.teams.filter(team => team.team.division==='ATLANTIC' || team.team.division==='METROPOLITAN')
+  const westTeams = props.teams.filter(team => team.team.division==='PACIFIC' || team.team.division==='CENTRAL')
+  const atlantic = props.teams.filter(team => team.team.division==='ATLANTIC')
+  const pacific = props.teams.filter(team => team.team.division==='PACIFIC')
+  const metropolitan = props.teams.filter(team => team.team.division==='METROPOLITAN')
+  const central = props.teams.filter(team => team.team.division==='CENTRAL')
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -86,18 +86,18 @@ export default function StandingsTabs(props) {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <StandingsTable teams={props.teams} title={"League"}/>
+        <TabPanel value={value} key={0} index={0} dir={theme.direction}>
+          <StandingsTable key={1} teams={props.teams} title={"League"}/>
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <StandingsTable teams={atlantic} title={"Atlantic"}/>
-          <StandingsTable teams={metropolitan} title={"Metropolitan"}/>
-          <StandingsTable teams={central} title={"Central"}/>
-          <StandingsTable teams={pacific} title={"Pacific"}/>
+        <TabPanel value={value} key={2} index={1} dir={theme.direction}>
+          <StandingsTable key={3} teams={atlantic} title={"Atlantic"}/>
+          <StandingsTable key={4} teams={metropolitan} title={"Metropolitan"}/>
+          <StandingsTable key={5} teams={central} title={"Central"}/>
+          <StandingsTable key={6} teams={pacific} title={"Pacific"}/>
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <StandingsTable teams={eastTeams} title={"East"}/>
-          <StandingsTable teams={westTeams} title={"West"}/>
+        <TabPanel value={value} key={7} index={2} dir={theme.direction}>
+          <StandingsTable key={8} teams={eastTeams} title={"East"}/>
+          <StandingsTable key={9} teams={westTeams} title={"West"}/>
         </TabPanel>
       </SwipeableViews>
     </div>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'hockeywiz',
     'teams',
+    'schedule',
 ]
 
 MIDDLEWARE = [
@@ -57,8 +58,12 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-
+CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
 CORS_ALLOW_CREDENTIALS = True 
+
+GRAPHENE = {
+    'SCHEMA': 'hockeywiz.schema.schema',
+}
 
 ROOT_URLCONF = 'hockeywiz.urls'
 

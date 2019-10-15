@@ -35,10 +35,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function AutoGrid({teams}) {
   const classes = useStyles();
-  const atlantic = teams.filter(team => team.team.division==='Atlantic')
-  const pacific = teams.filter(team => team.team.division==='Pacific')
-  const metropolitan = teams.filter(team => team.team.division==='Metropolitan')
-  const central = teams.filter(team => team.team.division==='Central')
+  console.log(teams)
+  const atlantic = teams.filter(team => team.team.division==='ATLANTIC')
+  const pacific = teams.filter(team => team.team.division==='PACIFIC')
+  const metropolitan = teams.filter(team => team.team.division==='METROPOLITAN')
+  const central = teams.filter(team => team.team.division==='CENTRAL')
   return (
     <div className={classes.root } >
       <Typography variant="h4" className={classes.title}>
@@ -47,7 +48,6 @@ export default function AutoGrid({teams}) {
       <Grid container={true} spacing={2}
         direction="row"
         justify="center"
-        alignItems="top"
         width='40%'
       >
         <Grid item xs={12} sm={12} md={6} l={6} xl={6}>

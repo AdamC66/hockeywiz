@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import main_url from '../../config'
-import StandingsTable from '../../components/StandingsTable/StandingsTable'
-import StandingsTabs from '../../components/StandingsTabs/StandingsTabs'
-
-function Teams() {
-    const [teams, setTeams] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
-  
-    useEffect(() =>{
-      async function fetchData(){
-        const res = await main_url.get('/teams/api/standings')
-        .then(res=> setTeams(res.data))
-        setIsLoading(false)
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import BigTeamCard from '../../components/BigTeamCard/BigTeamCard'
+function Teams(props) {
+    const GET_TEAM = gql`
+    query team($name: String){
+        team(name: $name){
+          name
+          city
+          teamRecord{
+            wins
+            losses
+            ot
+            gamesPlayed
+            goalsScored
+            goalsAgainst
+            streakType
+            streakLength
+            points
+          }
+        }
       }
-      fetchData()
-    },[])
-  
-  
+        `
+        const { data, loading, error } = useQuery(GET_TEAM, {variables: {name: props.match.params.name}});
+        if (loading) return <div>Loading</div>
+        if (error) return <div>Error</div>
+        console.log(data)
     return (
-      <div className="Teams">     
-        { isLoading ? <div>Loading</div> : <StandingsTabs teams={teams}/>}
-      </div>
-    );
-  }
-  
-  export default Teams;
+        <div>
+            <BigTeamCard team={data.team}></BigTeamCard>
+        </div>
+    )
+}
+
+export default Teams

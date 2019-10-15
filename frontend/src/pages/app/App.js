@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import Header from '../../components/Header/Header'
-import DivisionTable from '../../components/DivisionTable/DivisionTable'
-import main_url from '../../config'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Teams from '../teams/Teams'
+import Standings from '../standings/Standings'
 import Home from '../home/Home'
+import Teams from '../teams/Teams'
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+
 function App() {
-  const [teams, setTeams] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() =>{
-    async function fetchData(){
-      const res = await main_url.get('/teams/api/standings')
-      .then(res=> setTeams(res.data))
-      setIsLoading(false)
-    }
-    fetchData()
-  },[])
-
+  const client = new ApolloClient({
+    uri: "http://localhost:8000/graphql/"
+  });
 
   return (
     <Router>
+      <ApolloProvider client={client}>
             <div className="Teams">
                 <Header />
             </div>
-        <Route exact path = '/teams' component = {Teams}/>
-        <Route exact path='/' component = {Home}/>
+        <Switch>
+        <Route exact path = '/Standings' component = {Standings}/>
+        <Route exact path='/Home' component = {Home}/>
+        <Route exact path='/Teams/:name' render ={(props) => <Teams {...props}/> }/>
+        </Switch>
+        </ApolloProvider>
     </Router>
   );
 }

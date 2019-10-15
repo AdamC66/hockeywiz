@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import logoPlaceholder from '../../img/logo-placeholder.jpeg'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root:{
@@ -59,6 +59,7 @@ export default function SimpleCard({team}) {
 
 
   return (
+    <Link to={`/Teams/${team.team.name}`}>
     <Card className={classes.card}>
     <CssBaseline />
       <CardContent className={classes.root}>
@@ -68,7 +69,7 @@ export default function SimpleCard({team}) {
         </div>
         <div className={classes.teamCardCenter}>
             <span className={classes.compress}> W: {team.wins} | L: {team.losses} | OTL: {team.ot} </span>
-            <span className={classes.compress}> GP: {team.games_played} | GF: {team.goals_scored} | GA: {team.goals_against} | streak: {team.streak_length} {team.streak_type} </span>
+            <span className={classes.compress}> GP: {team.gamesPlayed} | GF: {team.goalsScored} | GA: {team.goalsAgainst} | streak: {team.streakLength} {team.streakType} </span>
         </div>  
         <div className={classes.teamCardRight}>
             <Typography variant="h6">
@@ -78,5 +79,6 @@ export default function SimpleCard({team}) {
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 }

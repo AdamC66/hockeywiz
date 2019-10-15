@@ -1,25 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import DivisionTable from '../../components/DivisionTable/DivisionTable'
-import main_url from '../../config'
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 function Home() {
-    const [teams, setTeams] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
-  
-    useEffect(() =>{
-      async function fetchData(){
-        const res = await main_url.get('/teams/api/standings')
-        .then(res=> setTeams(res.data))
-        setIsLoading(false)
+    const GET_STANDINGS = gql`
+    query {
+      allTeamRecords {
+        team {
+          name
+          city
+          nhlApiId
+          division
+        }
+        wins
+        losses
+        ot
+        gamesPlayed
+        goalsScored
+        goalsAgainst
+        streakLength
+        streakType
+        points
       }
-      fetchData()
-    },[])
-  
-  
+    }
+    `
+    const { data, loading, error } = useQuery(GET_STANDINGS);
+    if (loading) return <div>Loading</div>
+    if (error) return <div>Error</div>
     return (
         
       <div className="Teams">
-        { isLoading ? <div>Loading</div> : <DivisionTable teams={teams}/>}
+        <DivisionTable teams={data.allTeamRecords}/>
       </div>
     );
   }
