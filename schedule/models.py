@@ -16,4 +16,4 @@ class Game(models.Model):
     def __str__(self):
         return ("{} @ {} - {}".format(self.home_team.name, self.away_team.name, self.date))
     class Meta:
-        ordering = ('-date',)
+        ordering = ('date',)
