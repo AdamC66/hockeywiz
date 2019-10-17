@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import BigTeamCard from '../../components/BigTeamCard/BigTeamCard'
 import ScheduleMonth from '../../components/ScheduleMonth/ScheduleMonth'
-import { object } from 'prop-types';
+
 function Schedule(props) {
     const GET_TEAM = gql`
     query team($name: String){
