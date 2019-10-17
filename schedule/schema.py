@@ -5,6 +5,7 @@ import requests
 import datetime
 from teams.models import Team
 from django.db.models import Q
+from datetime import datetime, timedelta
 class GameType(DjangoObjectType):
     class Meta:
         model = Game
@@ -45,3 +46,34 @@ def updatedata():
                     new_game.final_score_away = game["teams"]["away"]["score"]
                     new_game.final_score_home = game["teams"]["home"]["score"]
                 new_game.save()
+
+def calc_difficulty():
+    all_games = Game.objects.all()
+    for game in all_games:
+        home_team = game.home_team
+        away_team = game.away_team
+        game_date = game.date
+        home_last_game = Game.objects.filter(Q(home_team=(home_team))| Q(away_team=(home_team)), date__lt=(game_date)).order_by('-date').first() 
+        away_last_game = Game.objects.filter(Q(home_team=(away_team))| Q(away_team=(away_team)), date__lt=(game_date)).order_by('-date').first()
+        if home_last_game:
+            home_game_diff = abs((game_date - home_last_game.date).days)
+            if home_game_diff == 1:
+                game.home_team_status = 1 #Tired (Back to Back)
+            elif home_game_diff == 2: 
+                game.home_team_status = 2 #1 day of Rest
+            else:
+                game.home_team_status = 3 #2+ days of rest
+        else:
+            game.home_team_status = 3 #2+ days of rest
+        if away_last_game:
+            away_game_diff = abs((game_date - away_last_game.date).days)
+            if away_game_diff == 1:
+                game.away_team_status = 1 #Tired (Back to Back)
+            elif away_game_diff == 2:
+                game.away_team_status = 2 #1 day of Rest
+            else:
+                game.away_team_status = 3 #2+ days of rest
+        else:
+            game.away_team_status = 3 #2+ days of rest
+        game.save()
+        

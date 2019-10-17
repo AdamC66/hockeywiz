@@ -2,9 +2,9 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import BigTeamCard from '../../components/BigTeamCard/BigTeamCard'
-import Calendar from '../../components/Calendar/Calendar'
-import { Link } from 'react-router-dom'
-function Teams(props) {
+import ScheduleMonth from '../../components/ScheduleMonth/ScheduleMonth'
+import { object } from 'prop-types';
+function Schedule(props) {
     const GET_TEAM = gql`
     query team($name: String){
         team(name: $name){
@@ -36,6 +36,8 @@ function Teams(props) {
             status
             finalScoreHome
             finalScoreAway
+            homeTeamStatus
+            awayTeamStatus
           }
           awayGame{
             homeTeam{
@@ -52,6 +54,8 @@ function Teams(props) {
             status
             finalScoreHome
             finalScoreAway
+            homeTeamStatus
+            awayTeamStatus
           }
         }
     }
@@ -59,14 +63,31 @@ function Teams(props) {
     const { data:teamData, loading:teamLoading, error:teamError } = useQuery(GET_TEAM, {variables: {name: props.match.params.name}});
     if (teamLoading) return <div>Loading</div>
     if (teamError) return <div>Error</div>
+    console.log([...teamData.team.awayGame, ...teamData.team.homeGame])
+    const fixedGames = [...teamData.team.awayGame, ...teamData.team.homeGame]
+    fixedGames.forEach(game =>{
+        game.date = new Date(game.date)
+    })
+    fixedGames.sort((a,b)=>{
+        return a.date<b.date ? -1 : a.date>b.date ? 1 : 0;
+    })
+    let monthCards = []
+    for (let i = 0; i < 12; i++) {
+        let games_by_month = fixedGames.filter((item) =>{
+            return (item.date.getMonth()===i)
+        })
+        monthCards.push(<ScheduleMonth games={games_by_month} month={i} team={props.match.params.name}/>)
+        
+    };
 
+    console.log(fixedGames)
+    
     return (
         <div>
             <BigTeamCard team={teamData.team}></BigTeamCard>
-            <Link to={`/Teams/Schedule/${props.match.params.name}`}> Schedule </Link>
-            <Calendar games={[...teamData.team.awayGame, ...teamData.team.homeGame]}/>
+            {monthCards}
         </div>
     )
 }
 
-export default Teams
+export default Schedule

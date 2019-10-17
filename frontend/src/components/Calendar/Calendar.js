@@ -43,7 +43,6 @@ export default function GameCalendar({games}) {
             allDay:true
         })
     });
-    console.log(myEventsList)
     return (
         <Card className={classes.card}>
         <CardHeader
