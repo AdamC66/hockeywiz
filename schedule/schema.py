@@ -19,7 +19,7 @@ class Query(graphene.ObjectType):
         if team_name:
             return Game.objects.filter(Q(home_team__name__icontains=(team_name))| Q(away_team__name__icontains=(team_name)))
         queryset = Game.objects.all()
-        if not queryset or queryset.first().last_updated.replace(tzinfo=None) <= (datetime.datetime.now().replace(tzinfo=None) - datetime.timedelta(hours=6)):
+        if not queryset or queryset.first().last_updated.replace(tzinfo=None) <= (datetime.now().replace(tzinfo=None) - timedelta(hours=6)):
             updatedata()
         return queryset
 
@@ -40,7 +40,7 @@ def updatedata():
                     game_pk= game["gamePk"],
                     link = game["link"],
                     status = game["status"]["detailedState"],            
-                    last_updated= datetime.datetime.now()
+                    last_updated= datetime.now()
                 )
                 if game["status"]["detailedState"] == 'Final':
                     new_game.final_score_away = game["teams"]["away"]["score"]

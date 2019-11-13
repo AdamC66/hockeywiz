@@ -22,7 +22,7 @@ function App() {
             </div>
         <Switch>
         <Route exact path = '/Standings' component = {Standings}/>
-        <Route exact path='/Home' component = {Home}/>
+        <Route exact path='/' component = {Home}/>
         <Route exact path='/Teams/:name' render ={(props) => <Teams {...props}/> }/>
         <Route exact path='/Teams/Schedule/:name' render ={(props) => <Schedule {...props}/> } /> 
         </Switch>
