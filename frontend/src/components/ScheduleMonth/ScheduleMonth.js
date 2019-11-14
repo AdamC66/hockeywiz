@@ -3,17 +3,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles( theme =>({
   root:{
     padding:5,
-    maxHeight: '8em',
+    maxHeight: '4em',
   },
   card: {
     minWidth: 200,
     maxWidth: 800,
-    height: '14em',
+    height: '10em',
     margin: '1em auto',
   },
   title: {
@@ -23,9 +30,25 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 24,
   },
-});
+  paper: {
+    marginTop: theme.spacing(3),
+    width: '100%',
+    overflowX: 'auto',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 650,
+  },
+}));
+function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+  }
+  
+  const rows = [
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  ];
 
-export default function BigTeamCard({games, month, team}) {
+export default function ScheduleMonth({games, month, team}) {
     const classes = useStyles();
     const makeMonth = month =>{
         switch(month){
@@ -79,12 +102,28 @@ export default function BigTeamCard({games, month, team}) {
         <CssBaseline />
         <CardContent className={classes.root}>
             <h3>{makeMonth(month)}</h3>
-            <p>
-                Total Games: {games.length}
-            </p>
-            <p>Well Rested Games: {countGamesbyStatus(3)}</p>
-            <p>Rested Games: {countGamesbyStatus(2)}</p>
-            <p>Tired Games: {countGamesbyStatus(1)}</p>
+        <Table className={classes.table} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Total Games</TableCell>
+              <TableCell align="center">Well Rested Games</TableCell>
+              <TableCell align="center">Rested Games</TableCell>
+              <TableCell align="center">Tired Games</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row" align="center">
+                  {games.length}
+                </TableCell>
+                <TableCell align="center">{countGamesbyStatus(3)}</TableCell>
+                <TableCell align="center">{countGamesbyStatus(2)}</TableCell>
+                <TableCell align="center">{countGamesbyStatus(1)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
         </CardContent>
         </Card>
     );

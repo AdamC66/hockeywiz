@@ -2,8 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import BigTeamCard from '../../components/BigTeamCard/BigTeamCard'
-import Calendar from '../../components/Calendar/Calendar'
-import { Link } from 'react-router-dom'
+import TeamTabs from '../../components/TeamTabs/TeamTabs'
 function Teams(props) {
     const GET_TEAM = gql`
     query team($name: String){
@@ -36,6 +35,8 @@ function Teams(props) {
             status
             finalScoreHome
             finalScoreAway
+            homeTeamStatus
+            awayTeamStatus
           }
           awayGame{
             homeTeam{
@@ -52,6 +53,8 @@ function Teams(props) {
             status
             finalScoreHome
             finalScoreAway
+            homeTeamStatus
+            awayTeamStatus
           }
         }
     }
@@ -63,8 +66,7 @@ function Teams(props) {
     return (
         <div>
             <BigTeamCard team={teamData.team}></BigTeamCard>
-            <Link to={`/Teams/Schedule/${props.match.params.name}`}> Schedule </Link>
-            <Calendar games={[...teamData.team.awayGame, ...teamData.team.homeGame]}/>
+            <TeamTabs games={[...teamData.team.awayGame, ...teamData.team.homeGame]} team={props.match.params.name}/>
         </div>
     )
 }

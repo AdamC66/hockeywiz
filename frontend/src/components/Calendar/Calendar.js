@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import moment from 'moment'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
@@ -10,7 +9,7 @@ import Toolbar from 'react-big-calendar/lib/Toolbar'
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: "80%",
+    maxWidth: "100%",
     margin: '0 auto',
     background: 'white',
   },
@@ -45,10 +44,7 @@ export default function GameCalendar({games}) {
     });
     return (
         <Card className={classes.card}>
-        <CardHeader
-            className={classes.cardHeader}
-            title="Schedule"
-        />
+
         <CardContent className={classes.calendarContainer}>
             <Calendar
             components = {{toolbar : CustomToolbar}}

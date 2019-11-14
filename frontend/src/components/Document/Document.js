@@ -26,6 +26,7 @@ export default class MyDocument extends Component {
         field.value=""
     }else{
         this.setState(state =>({pageNumber : pageGo}))
+        field.value=""
     }
     }
   render() {

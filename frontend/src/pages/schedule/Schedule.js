@@ -76,7 +76,7 @@ function Schedule(props) {
         let games_by_month = fixedGames.filter((item) =>{
             return (item.date.getMonth()===i)
         })
-        monthCards.push(<ScheduleMonth games={games_by_month} month={i} team={props.match.params.name}/>)
+        monthCards.push(<ScheduleMonth games={games_by_month} month={i} key={i} team={props.match.params.name}/>)
         
     };
 
