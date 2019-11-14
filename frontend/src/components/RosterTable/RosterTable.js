@@ -10,8 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+
 
 
 function createData(fullName, jerseyNumber, positionAbbv) {
@@ -62,7 +61,7 @@ function EnhancedTableHead(props) {
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -97,8 +96,8 @@ EnhancedTableHead.propTypes = {
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
+    paddingLeft: '0',
+    paddingRight: '0',
   },
   highlight:
     theme.palette.type === 'light'
@@ -111,7 +110,7 @@ const useToolbarStyles = makeStyles(theme => ({
           backgroundColor: theme.palette.secondary.dark,
         },
   spacer: {
-    flex: '1 1 100%',
+    // flex: '1 1 100%',
   },
   actions: {
     color: theme.palette.text.secondary,
@@ -137,12 +136,11 @@ const EnhancedTableToolbar = props => {
             {numSelected} selected
           </Typography>
         ) : (
-          <Typography variant="h4" id="tableTitle">
+          <Typography variant="h6" id="tableTitle">
             {props.title}
           </Typography>
         )}
       </div>
-      <div className={classes.spacer} />
       
     </Toolbar>
   );
@@ -155,14 +153,10 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
+    marginTop: '0',
   },
   table: {
-    minWidth: 750,
+    minWidth: 700,
   },
   tableWrapper: {
     overflowX: 'auto',
@@ -178,12 +172,6 @@ const useStyles = makeStyles(theme => ({
     top: 20,
     width: 1,
   },
-  teamLogo:{
-    width: 'auto',
-    height: '1.5em',
-    margin: 0,
-    padding: 0,
-},
 }));
 
 export default function RosterTable(props) {
@@ -191,9 +179,9 @@ export default function RosterTable(props) {
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('points');
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const page = 0
+  const dense = true;
+  const rowsPerPage = 1
   let rows = []
 //   team, gp, wins, losses, ot, row, gf, ga, streak, points
   props.players.forEach(player => {
@@ -218,9 +206,6 @@ export default function RosterTable(props) {
     setSelected([]);
   };
 
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
-  };
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
@@ -261,8 +246,8 @@ export default function RosterTable(props) {
                       <TableCell component="th" id={labelId} scope="row">
                       {row.fullName}
                       </TableCell>
-                      <TableCell align="right">{row.jerseyNumber}</TableCell>
-                      <TableCell align="right">{row.positionAbbv}</TableCell>
+                      <TableCell align="center">{row.jerseyNumber}</TableCell>
+                      <TableCell align="center">{row.positionAbbv}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -274,10 +259,7 @@ export default function RosterTable(props) {
             </TableBody>
           </Table>
         </div>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+
     </div>
   );
 }

@@ -217,9 +217,9 @@ export default function StandingsTable(props) {
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('points');
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
+  const page = 0;
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const rowsPerPage = 5;
   let rows = []
 //   team, gp, wins, losses, ot, row, gf, ga, streak, points
   props.teams.forEach(team => {
