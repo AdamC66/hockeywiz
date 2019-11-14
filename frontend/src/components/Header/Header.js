@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(0),
   },
   title: {
     flexGrow: 1,
@@ -30,7 +30,7 @@ export default function Header() {
             <Drawer />
           </IconButton>
           <Typography variant="h4" className={classes.title}>
-            Hockey-Wiz
+            Hockey-Wiz (Alpha)
           </Typography>
         </Toolbar>
       </AppBar>
