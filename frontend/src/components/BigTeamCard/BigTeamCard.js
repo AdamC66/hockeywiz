@@ -69,7 +69,7 @@ export default function BigTeamCard({team}) {
         </div>
         <div className={classes.teamCardCenter}>
             <Typography variant="h4">
-                {team.city} {team.name}
+                {team.city=== "New YorkR" || team.city=== "New YorkI"? "New York" : team.city} {team.name}
             </Typography>
             <div className={classes.compress}> W: {team.teamRecord[0].wins} | L: {team.teamRecord[0].losses} | OTL: {team.teamRecord[0].ot} </div>
             <div className={classes.compress}> GP: {team.teamRecord[0].gamesPlayed} | GF: {team.teamRecord[0].goalsScored} | GA: {team.teamRecord[0].goalsAgainst} | streak: {team.teamRecord[0].streakLength} {team.teamRecord[0].streakType} </div>

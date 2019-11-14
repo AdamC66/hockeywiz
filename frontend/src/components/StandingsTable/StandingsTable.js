@@ -18,6 +18,8 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
+import { Link } from 'react-router-dom'
+
 function createData(team, city, gp, wins, losses, ot, row, gf, ga, streak, points) {
   return { team, city, gp, wins, losses, ot, row, gf, ga, streak, points};
 }
@@ -291,7 +293,7 @@ export default function StandingsTable(props) {
                     >
                     {/* team, gp, wins, losses, ot, row, gf, ga, streak, points */}
                       <TableCell component="th" id={labelId} scope="row">
-                      <img className={classes.teamLogo} src={`/teamlogos/${row.city.toLowerCase().replace(/\s/g, '')}.png`} alt="" /> {row.team} 
+                      <Link to={`/Teams/${row.team}`} style={{textDecoration: 'none', color:'black'}}> <img className={classes.teamLogo} src={`/teamlogos/${row.city.toLowerCase().replace(/\s/g, '')}.png`} alt="" /> {row.team} </Link>
                       </TableCell>
                       <TableCell align="right">{row.gp}</TableCell>
                       <TableCell align="right">{row.wins}</TableCell>
