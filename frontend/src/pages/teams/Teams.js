@@ -20,6 +20,13 @@ function Teams(props) {
             streakLength
             points
           }
+          players{
+            fullName
+            positionName
+            jerseyNumber
+            positionCode
+            positionAbbv
+          }
           homeGame{
             homeTeam{
               city
@@ -66,7 +73,7 @@ function Teams(props) {
     return (
         <div>
             <BigTeamCard team={teamData.team}></BigTeamCard>
-            <TeamTabs games={[...teamData.team.awayGame, ...teamData.team.homeGame]} team={props.match.params.name}/>
+            <TeamTabs games={[...teamData.team.awayGame, ...teamData.team.homeGame]} team={props.match.params.name} players={teamData.team.players}/>
         </div>
     )
 }

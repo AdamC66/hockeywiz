@@ -51,6 +51,10 @@ const useStyles = makeStyles({
   compress:{
       margin: 0,
       padding: 0,
+  },
+  link:{
+    textDecoration: 'none',
+    color: 'black'
   }
 });
 
@@ -59,7 +63,7 @@ export default function SimpleCard({team}) {
 
 
   return (
-    <Link to={`/Teams/${team.team.name}`}>
+    <Link to={`/Teams/${team.team.name}`} className={classes.link}>
     <Card className={classes.card}>
     <CssBaseline />
       <CardContent className={classes.root}>

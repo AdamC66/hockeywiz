@@ -50,7 +50,7 @@ export default function TemporaryDrawer() {
             <ListItemText primary={'Home'} /> 
           </ListItem>
           </Link>
-        {['Teams', 'Standings', 'Tools'].map((text, index) => (
+        {['Standings', 'Tools'].map((text, index) => (
           <Link to={`/${text}`} key={index}>
           <ListItem button key={text}>
             <ListItemIcon>{<GroupIcon />}</ListItemIcon>

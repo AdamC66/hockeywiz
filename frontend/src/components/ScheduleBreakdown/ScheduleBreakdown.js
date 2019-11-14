@@ -14,7 +14,6 @@ function Schedule(props) {
     let monthCards = []
     const monthOrder = [9,10,11,0,1,2,3]
     monthOrder.forEach(i =>{
-        console.log(i)
         let games_by_month = props.games.filter((item) =>{
             return (item.date.getMonth()===i)
         })

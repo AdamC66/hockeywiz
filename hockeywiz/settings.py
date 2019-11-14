@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'hockeywiz',
     'teams',
     'schedule',
+    'players',
 ]
 
 MIDDLEWARE = [

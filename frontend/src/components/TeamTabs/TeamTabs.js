@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 
 import Calendar from '../Calendar/Calendar'
 import ScheduleBreakdown from '../ScheduleBreakdown/ScheduleBreakdown'
+import RosterTable from '../RosterTable/RosterTable'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,7 +62,10 @@ export default function FullWidthTabs(props) {
   const handleChangeIndex = index => {
     setValue(index);
   };
-
+  
+  const forwards = props.players.filter(player=> player.positionCode === 'C' || player.positionCode === 'L' || player.positionCode ==='R')
+  const defence = props.players.filter(player=> player.positionCode === 'D')
+  const goalies = props.players.filter(player=> player.positionCode === 'G')
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -91,7 +95,9 @@ export default function FullWidthTabs(props) {
           <ScheduleBreakdown games={props.games} team={props.team}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-            Roster Goes Here
+          <RosterTable key={1} players={forwards} title={"Forwards"}/>
+          <RosterTable key={2} players={defence} title={"Defence"}/>
+          <RosterTable key={3} players={goalies} title={"Goalies"}/>
         </TabPanel>
       </SwipeableViews>
     </div>

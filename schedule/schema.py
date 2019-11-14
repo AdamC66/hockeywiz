@@ -24,7 +24,7 @@ class Query(graphene.ObjectType):
         return queryset
 
 def updatedata():
-    nhl_data = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?startDate=2019-10-03&endDate=2020-04-12").json()
+    nhl_data = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?startDate=2019-10-01&endDate=2020-04-12").json()
     for date in nhl_data["dates"]:
         for game in date["games"]:
             if Game.objects.filter(game_pk=game["gamePk"]):
