@@ -26,6 +26,17 @@ function Teams(props) {
             jerseyNumber
             positionCode
             positionAbbv
+            birthDate
+            birthCity
+            birthStateProvince
+            birthCountry
+            height
+            wieght
+            nationality
+            alternateCaptain
+            captain
+            rookie
+            rosterStatus
           }
           homeGame{
             homeTeam{
