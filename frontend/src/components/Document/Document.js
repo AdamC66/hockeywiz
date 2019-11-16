@@ -3,9 +3,11 @@ import { Document, Page } from "react-pdf/dist/entry.webpack";
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default class MyDocument extends Component {
-  state = { numPages: null, pageNumber: 1 };
+  state = { numPages: null, pageNumber: 1, };
 
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
@@ -22,6 +24,10 @@ export default class MyDocument extends Component {
   goToPage = () =>{
       let field = document.querySelector('#outlined-basic')
       let pageGo = parseInt(field.value, 10)
+      let correct = document.querySelector("#correct")
+      if (correct.checked === true){
+        pageGo += 11
+      }
       if (pageGo > this.state.numPages){
         field.value=""
     }else{
@@ -42,6 +48,16 @@ export default class MyDocument extends Component {
         <p>
           Page {pageNumber} of {numPages}
         </p>
+        <FormControlLabel
+        control={
+          <Checkbox
+            id="correct"
+            value="checkedB"
+            color="primary"
+          />
+        }
+        label="Correct Page"
+      />
         <TextField
           id="outlined-basic"
           label="Go To Page"

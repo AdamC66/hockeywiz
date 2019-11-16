@@ -13,8 +13,8 @@ import Typography from '@material-ui/core/Typography';
 
 
 
-function createData(fullName, jerseyNumber, positionAbbv) {
-  return { fullName, jerseyNumber, positionAbbv};
+function createData(fullName, jerseyNumber, positionAbbv, playerAge, height, wieght, birthDate, birthPlace) {
+  return { fullName, jerseyNumber, positionAbbv, playerAge, height, wieght, birthDate, birthPlace};
 }
 
 
@@ -46,7 +46,11 @@ const headCells = [
   { id: 'fullName', numeric: false, disablePadding: false, label: 'Name' },
   { id: 'jerseyNumber', numeric: true, disablePadding: false, label: 'Jersey Number' },
   { id: 'position', numeric: true, disablePadding: false, label: 'Position' },
-
+  { id: 'playerAge', numeric: true, disablePadding: false, label: 'Age' },
+  { id: 'height', numeric: true, disablePadding: false, label: 'Height' },
+  { id: 'wieght', numeric: true, disablePadding: false, label: 'Weight' },
+  { id: 'birthDate', numeric: true, disablePadding: false, label: 'Birthday' },
+  { id: 'birthPlace', numeric: false, disablePadding: false, label: 'Born' },
 ];
 
 function EnhancedTableHead(props) {
@@ -123,7 +127,7 @@ const useToolbarStyles = makeStyles(theme => ({
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
   const { numSelected } = props;
-
+  
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -154,6 +158,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     marginTop: '0',
+    marginBottom: '2em',
   },
   table: {
     minWidth: 700,
@@ -183,11 +188,27 @@ export default function RosterTable(props) {
   const dense = true;
   const rowsPerPage = 1
   let rows = []
+
+
+  const makeBirthPlace = (country, city, province=null) =>{
+      let place = city + ', ' + country
+      if (province)
+        place = city + ', ' + province + ', '  + country
+      return place
+  }
+
+
+  console.log(props)
 //   team, gp, wins, losses, ot, row, gf, ga, streak, points
   props.players.forEach(player => {
         rows.push(createData(player.fullName, 
                             player.jerseyNumber,
-                            player.positionAbbv, 
+                            player.positionAbbv,
+                            player.currentAge,
+                            player.height,
+                            player.wieght, 
+                            player.birthDate,
+                            makeBirthPlace(player.birthCountry, player.birthCity, player.birthStateProvince)
                             ))
     });
 
@@ -248,6 +269,11 @@ export default function RosterTable(props) {
                       </TableCell>
                       <TableCell align="center">{row.jerseyNumber}</TableCell>
                       <TableCell align="center">{row.positionAbbv}</TableCell>
+                      <TableCell align="center">{row.playerAge}</TableCell>
+                      <TableCell align="center">{row.height}</TableCell>
+                      <TableCell align="center">{row.wieght} lbs</TableCell>
+                      <TableCell align="center">{row.birthDate}</TableCell>
+                      <TableCell align="left">{row.birthPlace}</TableCell>
                     </TableRow>
                   );
                 })}

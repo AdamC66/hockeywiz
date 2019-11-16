@@ -10,7 +10,7 @@ import Home from '../home/Home'
 import Teams from '../teams/Teams'
 import Schedule from '../schedule/Schedule'
 import Rules from '../Rules/Rules'
-
+import About from '../about/About'
 
 function App() {
   const client = new ApolloClient({
@@ -26,6 +26,7 @@ function App() {
         <Switch>
         <Route exact path = '/Standings' component = {Standings}/>
         <Route exact path = '/Rules' component = {Rules}/>
+        <Route exact path = '/About' component = {About}/>
         <Route exact path='/' component = {Home}/>
         <Route exact path='/Teams/:name' render ={(props) => <Teams {...props}/> }/>
         <Route exact path='/Teams/Schedule/:name' render ={(props) => <Schedule {...props}/> } /> 

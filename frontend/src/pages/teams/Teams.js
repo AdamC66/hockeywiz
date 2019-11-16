@@ -28,6 +28,7 @@ function Teams(props) {
             positionAbbv
             birthDate
             birthCity
+            currentAge
             birthStateProvince
             birthCountry
             height
