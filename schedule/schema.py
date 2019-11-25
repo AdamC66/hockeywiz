@@ -6,6 +6,8 @@ import datetime
 from teams.models import Team
 from django.db.models import Q
 from datetime import datetime, timedelta
+import pytz
+
 class GameType(DjangoObjectType):
     class Meta:
         model = Game
@@ -13,6 +15,7 @@ class GameType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     all_games = graphene.List(GameType, team_name=graphene.String())
+    todays_games = graphene.List(GameType)
 
     def resolve_all_games(self, info, **kwargs):
         team_name = kwargs.get('team_name')
@@ -22,6 +25,11 @@ class Query(graphene.ObjectType):
         if not queryset or queryset.first().last_updated.replace(tzinfo=None) <= (datetime.now().replace(tzinfo=None) - timedelta(hours=6)):
             updatedata()
         return queryset
+    def resolve_todays_games(self, info, **kwargs):
+        today = datetime.today().replace(tzinfo=pytz.utc)
+        today = today.replace(hour=4, minute=0, second=0)
+        todayend = today + timedelta(days=1)
+        return Game.objects.filter(date__range=[today,todayend])
 
 def updatedata():
     nhl_data = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?startDate=2019-10-01&endDate=2020-04-12").json()
