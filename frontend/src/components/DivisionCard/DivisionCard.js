@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 export default function SimpleCard({teams, mytitle}) {
   const classes = useStyles();
   const appElements = teams.map((team, i)=><TeamCard key={i} id={i} team={team}/>)
-    console.log("__DIVISION CARD", teams)
   return (
     <Card className={classes.card}>
     <CardHeader title={mytitle} className={classes.title}/>

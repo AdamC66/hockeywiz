@@ -29,7 +29,7 @@ class Query(graphene.ObjectType):
         today = datetime.today().replace(tzinfo=pytz.utc)
         today = today.replace(hour=4, minute=0, second=0)
         todayend = today + timedelta(days=1)
-        return Game.objects.filter(date__range=[today,todayend])
+        return Game.objects.filter(date__range=[today,todayend]).order_by('date')
 
 def updatedata():
     nhl_data = requests.get("https://statsapi.web.nhl.com/api/v1/schedule?startDate=2019-10-01&endDate=2020-04-12").json()

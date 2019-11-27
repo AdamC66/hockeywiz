@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function AutoGrid({teams}) {
   const classes = useStyles();
-  console.log(teams)
   const atlantic = teams.filter(team => team.team.division==='ATLANTIC')
   const pacific = teams.filter(team => team.team.division==='PACIFIC')
   const metropolitan = teams.filter(team => team.team.division==='METROPOLITAN')

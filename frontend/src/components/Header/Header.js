@@ -30,7 +30,7 @@ export default function Header() {
             <Drawer />
           </IconButton>
           <Typography variant="h4" className={classes.title}>
-            Hockey-Wiz (Alpha)
+            Hockey-Wiz <sup>(Alpha)</sup>
           </Typography>
         </Toolbar>
       </AppBar>
