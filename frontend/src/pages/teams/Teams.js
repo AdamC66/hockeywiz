@@ -38,6 +38,25 @@ function Teams(props) {
             captain
             rookie
             rosterStatus
+            statline{
+              goals
+              assists
+              points
+              pim
+              shots
+              games
+              plusMinus
+              shotPct
+              toiPerGm
+              wins
+              losses
+              ot
+              shutouts
+              saves
+              svPct
+              gaa
+              goalsAgainst
+            }
           }
           homeGame{
             homeTeam{

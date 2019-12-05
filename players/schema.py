@@ -107,7 +107,7 @@ def get_single_season_stats(team_name):
             player.statline.blocked_shots = data['stats'][0]['splits'][0]['stat']['blocked']
             player.statline.plus_minus = data['stats'][0]['splits'][0]['stat']['plusMinus']
             player.statline.shifts =data['stats'][0]['splits'][0]['stat']['shifts']
-            player.statline.toi_per_gm = data['stats'][0]['splits'][0]['stat']['timeOnIce']
+            player.statline.toi_per_gm = data['stats'][0]['splits'][0]['stat']['timeOnIcePerGame']
             player.statline.ev_toi_per_gm = data['stats'][0]['splits'][0]['stat']['timeOnIcePerGame'] 
             player.statline.sh_toi_per_gm = data['stats'][0]['splits'][0]['stat']['shortHandedTimeOnIcePerGame']
             player.statline.pp_toi_per_gm = data['stats'][0]['splits'][0]['stat']['powerPlayTimeOnIcePerGame']
@@ -172,7 +172,7 @@ def get_single_season_stats(team_name):
                     )
                 new_statline.save()
                 time.sleep(3)
-            elif player.statline.exists() == False and player.position_code != "G": 
+            elif player.statline.exists() == False and player.position_code == "G": 
                 new_statline = Stats.objects.create(
                 player = player,
                 season = data['stats'][0]['splits'][0]['season'],

@@ -11,7 +11,8 @@ import Box from '@material-ui/core/Box';
 import Calendar from '../Calendar/Calendar'
 import ScheduleBreakdown from '../ScheduleBreakdown/ScheduleBreakdown'
 import RosterTable from '../RosterTable/RosterTable'
-
+import SkaterTable from '../SkaterTable/SkaterTable'
+import GoalieTable from '../GoalieTable/GoalieTable'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -81,6 +82,7 @@ export default function FullWidthTabs(props) {
           <Tab label="Schedule" {...a11yProps(0)} />
           <Tab label="Schedule Breakdown" {...a11yProps(1)} />
           <Tab label="Roster" {...a11yProps(2)} />
+          <Tab label="Stats" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -98,6 +100,11 @@ export default function FullWidthTabs(props) {
           <RosterTable key={1} players={forwards} title={"Forwards"}/>
           <RosterTable key={2} players={defence} title={"Defence"}/>
           <RosterTable key={3} players={goalies} title={"Goalies"}/>
+        </TabPanel>
+        <TabPanel value={value} index={3} dir={theme.direction}>
+          <SkaterTable key={4} players={forwards} title={"Forwards"}/>
+          <SkaterTable key={5} players={defence} title={"Defence"}/>
+          <GoalieTable key={6} players={goalies} title={"Goalies"}/>
         </TabPanel>
       </SwipeableViews>
     </div>
