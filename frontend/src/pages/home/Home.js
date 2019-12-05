@@ -3,6 +3,8 @@ import DivisionTable from '../../components/DivisionTable/DivisionTable'
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import UpcomingGames from '../../components/UpcomingGames/UpcomingGames'
+
+
 function Home() {
     const GET_STANDINGS = gql`
     query {
