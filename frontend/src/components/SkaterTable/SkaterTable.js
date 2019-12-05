@@ -190,8 +190,6 @@ export default function SkaterTable(props) {
   const rowsPerPage = 1;
   let rows = [];
 
-
-  console.log(props);
   // fullName, jerseyNumber, position, gp, goals, assists, points, plusminus, shpct, toipergm
   props.players.forEach(player => {
     rows.push(

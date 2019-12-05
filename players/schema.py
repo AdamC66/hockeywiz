@@ -25,12 +25,15 @@ class Query(graphene.ObjectType):
             return Player.objects.filter(full_name=player_name)
         if team_name:
             update_player(team_name)
+            # update_all_player_stats()
             get_single_season_stats(team_name)
             return Player.objects.filter(current_team__name=team_name)
         queryset = Player.objects.all()
         return queryset
     def resolve_statline(self,info, **kwargs):
         pass
+
+
 def updatedata():
     all_teams = team_models.Team.objects.all()
     for team in all_teams:
@@ -76,14 +79,21 @@ def update_player(team_name):
         player.save()
         time.sleep(3)
 
+def update_all_player_stats():
+    for team in Team.objects.all():
+        get_single_season_stats(team.name)
+        time.sleep(3)
+
 def get_single_season_stats(team_name):
     print("updating Stats!")
     all_players = Player.objects.filter(current_team__name=team_name)
     for player in all_players:
         season = "20192020"
-        data = requests.get(f'https://statsapi.web.nhl.com/api/v1/people/{player.nhl_api_id}/stats?stats=statsSingleSeason&season={season}').json()
         print(player.full_name)
+        # if player.full_name in ["Dustin Byfuglien", "Greg Pateryn", "Brandon Dubinsky", "Eric Comrie", "Stephen Johns"]:
+        #     continue
         if player.statline.exists() and player.position_code != "G" and player.statline.filter(season="20192020").first().last_updated.replace(tzinfo=None) <= (datetime.now().replace(tzinfo=None) - timedelta(hours=6)):
+            data = requests.get(f'https://statsapi.web.nhl.com/api/v1/people/{player.nhl_api_id}/stats?stats=statsSingleSeason&season={season}').json()
             player.statline.season = data['stats'][0]['splits'][0]['season']
             player.statline.toi = data['stats'][0]['splits'][0]['stat']['timeOnIce']
             player.statline.assists = data['stats'][0]['splits'][0]['stat']['assists']
@@ -113,6 +123,7 @@ def get_single_season_stats(team_name):
             player.statline.pp_toi_per_gm = data['stats'][0]['splits'][0]['stat']['powerPlayTimeOnIcePerGame']
             time.sleep(3)
         elif player.statline.exists() and player.position_code == "G" and player.statline.filter(season="20192020").first().last_updated.replace(tzinfo=None) <= (datetime.now().replace(tzinfo=None) - timedelta(hours=6)): 
+            data = requests.get(f'https://statsapi.web.nhl.com/api/v1/people/{player.nhl_api_id}/stats?stats=statsSingleSeason&season={season}').json()
             player.statline.season = data['stats'][0]['splits'][0]['season']
             player.statline.toi = data['stats'][0]['splits'][0]['stat']['timeOnIce']
             player.statline.ot= data['stats'][0]['splits'][0]['stat']['ot']
@@ -140,6 +151,15 @@ def get_single_season_stats(team_name):
             time.sleep(3)
         else:
             if player.statline.exists() == False and player.position_code != "G":
+                data = requests.get(f'https://statsapi.web.nhl.com/api/v1/people/{player.nhl_api_id}/stats?stats=statsSingleSeason&season={season}').json()
+                try:
+                    data['stats'][0]['splits'][0]['season']
+                except IndexError:
+                    new_statline = Stats.objects.create(player=player, season = season, toi = 0, assists=0,goals=0,points=0,pim=0,shots=0,games=0,hits=0,pp_goals=0,pp_pts=0,pp_toi=0,
+                                                        ev_toi=0,face_off_pct=0,shot_pct=0,gwg=0,ot_goals=0,sh_goals=0,sh_points=0,sh_toi=0,blocked_shots=0,plus_minus=0,shifts=0, toi_per_gm=0,
+                                                        ev_toi_per_gm=0,sh_toi_per_gm=0, pp_toi_per_gm=0)
+                    new_statline.save()
+                    continue
                 new_statline = Stats.objects.create(
                     player= player,
                     season = data['stats'][0]['splits'][0]['season'],
@@ -172,7 +192,17 @@ def get_single_season_stats(team_name):
                     )
                 new_statline.save()
                 time.sleep(3)
-            elif player.statline.exists() == False and player.position_code == "G": 
+            elif player.statline.exists() == False and player.position_code == "G":
+                data = requests.get(f'https://statsapi.web.nhl.com/api/v1/people/{player.nhl_api_id}/stats?stats=statsSingleSeason&season={season}').json() 
+                try:
+                    data['stats'][0]['splits'][0]['season']
+                except IndexError:
+                    new_statline = Stats.objects.create(player=player, season = season, toi = 0, ot=0, shutouts=0, ties=0, wins=0, losses=0, saves=0, pp_saves=0, sh_saves=0, even_shots=0, pp_shots=0, sv_pct=0, gaa=0, games=0, 
+                    games_started=0, shots_against=0, goals_against=0, toi_per_game=0, pp_sv_pct=0, sh_sv_pct=0, ev_sv_pct=0)
+                    new_statline.save()
+                    continue
+
+
                 new_statline = Stats.objects.create(
                 player = player,
                 season = data['stats'][0]['splits'][0]['season'],

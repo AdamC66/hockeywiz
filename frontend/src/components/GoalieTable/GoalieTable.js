@@ -192,7 +192,6 @@ export default function GoalieTable(props) {
   let rows = [];
 
 
-  console.log(props);
   // fullName, jerseyNumber, gp, svpct, gaa, wins, losses, ot, shutouts, saves, goalsagainst
   props.players.forEach(player => {
     rows.push(

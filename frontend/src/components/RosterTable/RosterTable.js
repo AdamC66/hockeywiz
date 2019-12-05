@@ -197,8 +197,6 @@ export default function RosterTable(props) {
       return place
   }
 
-
-  console.log(props)
 //   team, gp, wins, losses, ot, row, gf, ga, streak, points
   props.players.forEach(player => {
         rows.push(createData(player.fullName, 
